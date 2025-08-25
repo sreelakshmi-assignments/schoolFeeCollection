@@ -10,7 +10,15 @@ import java.util.UUID;
 public class InitiatePaymentDelegate implements JavaDelegate {
     @Override
     public void execute(DelegateExecution execution) {
-        double amount = (double) execution.getVariable("amount");
+        Double amount = (Double) execution.getVariable("amount");
+
+        if (amount != null) {
+            double value = amount;
+            // Proceed with logic
+        } else {
+            // Handle missing variable gracefully
+            throw new RuntimeException("Payment amount is missing in process variables.");
+        }
         // Simulate payment
         execution.setVariable("paymentId", UUID.randomUUID().toString());
         execution.setVariable("paymentStatus", "SUCCESS");
